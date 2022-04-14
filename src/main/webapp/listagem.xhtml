@@ -1,14 +1,70 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE html
-        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
-<head>
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <title>Gestão de Biblioteca</title>
-</head>
-<body>
+    <h:outputStylesheet name="css/styles.css" />
+</h:head>
 
-    Listagem
+<h:body>
 
-</body>
+    <div class="header">
+        Gestão de Biblioteca
+    </div>
+
+    <div class="main">
+
+        <span class="titulo-pagina">Listagem de Livros</span>
+
+        <h:form id="form-livros">
+
+            <p:dataTable id="tb-livros" value="#{livroBean.livros}" var="livro" emptyMessage="Sem registros">
+                <p:column headerText="ID">
+                    <h:outputText value="#{livro.id}" />
+                </p:column>
+                <p:column headerText="ISBN">
+                    <h:outputText value="#{livro.isbn}" />
+                </p:column>
+                <p:column headerText="Título">
+                    <h:outputText value="#{livro.titulo}" />
+                </p:column>
+                <p:column headerText="Autor">
+                    <h:outputText value="#{livro.autor}" />
+                </p:column>
+                <p:column headerText="Categoria">
+                    <h:outputText value="#{livro.categoria}" />
+                </p:column>
+                <p:column headerText="Data de Publicação">
+                    <h:outputText value="#{livro.dataPublicacao}">
+                        <f:converter converterId="MeuLocalDateConverter" />
+                    </h:outputText>
+                </p:column>
+                <p:column headerText="Nro de Páginas">
+                    <h:outputText value="#{livro.nroDePaginas}" />
+                </p:column>
+                <p:column headerText="Ações">
+                    <p:commandButton value="Editar" action="#{livroBean.editarLivro(livro)}" styleClass="ui-button-secondary"
+                                     update="tb-livros" />
+                    <p:commandButton value="Remover" action="#{livroBean.removerLivro(livro)}"
+                                     onclick="return confirm('Confirma exclusão?')" styleClass="ui-button-danger"
+                                     update="tb-livros" />
+                </p:column>
+            </p:dataTable>
+
+        </h:form>
+
+        <p:linkButton value="Cadastrar novo livro" outcome="cadastrolivro" style="margin: 20px" />
+
+    </div>
+
+    <div class="footer">
+        Desenvolvido em 2022
+    </div>
+
+</h:body>
 </html>

@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Gestão de Biblioteca</title>
+    <h:outputStylesheet name="css/styles.css" />
+</h:head>
+
+
+<h:body>
+
+    <div class="header">
+        Gestão de Biblioteca
+    </div>
+
+    <div class="main">
+
+        <span class="titulo-pagina">Formulário de Cadastro de Livro</span>
+
+        <h:form id="form-cadastro-livro" styleClass="form-livro-container">
+            <p:panelGrid id="panel-cadastro-livro" columns="2" >
+
+                <p:outputLabel value="Identificador" for="input-id" rendered="#{livroBean.livro.id != null}"/>
+                <p:inputText value="#{livroBean.livro.id}" id="input-id"
+                             disabled="true" rendered="#{livroBean.livro.id != null}" />
+
+                <p:outputLabel value="ISBN(13)" for="input-isbn" />
+                <h:panelGroup styleClass="input-campo-e-erro">
+                    <p:inputText value="#{livroBean.livro.isbn}" id="input-isbn" />
+                    <p:message for="input-isbn" style="font-size: 0.8rem" />
+                </h:panelGroup>
+
+                <p:outputLabel value="Título" for="input-titulo" />
+                <h:panelGroup styleClass="input-campo-e-erro">
+                    <p:inputText value="#{livroBean.livro.titulo}" id="input-titulo" maxlength="100" />
+                    <p:message for="input-titulo" style="font-size: 0.8rem" />
+                </h:panelGroup>
+
+                <p:outputLabel value="Autor" for="input-autor" />
+                <h:panelGroup styleClass="input-campo-e-erro">
+                    <p:inputText value="#{livroBean.livro.autor}" id="input-autor" maxlength="100"/>
+                    <p:message for="input-autor" style="font-size: 0.8rem" />
+                </h:panelGroup>
+
+                <p:outputLabel value="Categoria" for="input-categoria" />
+                <h:panelGroup styleClass="input-campo-e-erro">
+                    <p:selectOneMenu value="#{livroBean.livro.categoria}" id="input-categoria">
+                        <f:selectItem itemValue="#{null}" itemLabel="-- selecione --" />
+                        <f:selectItems value="#{livroBean.categorias}" var="cat" itemValue="#{cat}" itemLabel="#{cat}" />
+                    </p:selectOneMenu>
+                    <p:message for="input-categoria" style="font-size: 0.8rem" />
+                </h:panelGroup>
+
+                <p:outputLabel value="Data de Publicação" for="input-data-pub" />
+                <h:panelGroup styleClass="input-campo-e-erro">
+                    <p:datePicker value="#{livroBean.livro.dataPublicacao}" id="input-data-pub" pattern="dd/MM/yyyy" />
+                    <p:message for="input-data-pub" style="font-size: 0.8rem" />
+                </h:panelGroup>
+
+                <p:outputLabel value="Nro de Páginas" for="input-paginas" />
+                <h:panelGroup styleClass="input-campo-e-erro">
+                    <p:inputText value="#{livroBean.livro.nroDePaginas}" id="input-paginas"
+                                 converterMessage="#{msgs['campo.invalido.formato']}"/>
+                    <p:message for="input-paginas" style="font-size: 0.8rem" />
+                </h:panelGroup>
+
+            </p:panelGrid>
+
+            <h:panelGroup styleClass="botao-container">
+                <p:commandButton style="margin: 20px"
+                                 value="#{livroBean.livro.id == null ? 'Cadastrar' : 'Atualizar'}"
+                                 action="#{livroBean.salvar}"
+                                 update="panel-cadastro-livro" />
+            </h:panelGroup>
+
+        </h:form>
+
+        <p:link value="Voltar" outcome="listagem" />
+
+    </div>
+
+</h:body>
+</html>
