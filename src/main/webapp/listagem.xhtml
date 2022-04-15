@@ -14,23 +14,35 @@
 <h:body>
 
     <div class="header">
-        Gestão de Biblioteca
+        <div class="logomarca">
+            <span>Gestão de Biblioteca</span>
+        </div>
+        <div class="itens-menu">
+            <span><h:link value="Listagem" outcome="listagem" styleClass="item-menu" /></span>
+            <span><h:link value="Cadastro de Livro" outcome="cadastrolivro" styleClass="item-menu" /></span>
+            <span><h:link value="Cadastro de Leitor" outcome="cadastroleitor" styleClass="item-menu" /></span>
+        </div>
     </div>
 
     <div class="main">
+
+        <f:metadata>
+            <f:event type="preRenderView" listener="#{listagemBean.onload}" />
+        </f:metadata>
 
         <span class="titulo-pagina">Listagem de Livros</span>
 
         <h:form id="form-livros">
 
-            <p:dataTable id="tb-livros" value="#{livroBean.livros}" var="livro" emptyMessage="Sem registros">
+            <p:dataTable id="tb-livros" value="#{listagemBean.livros}" var="livro" emptyMessage="Sem registros"
+                         allowUnsorting="true" sortMode="single">
                 <p:column headerText="ID">
                     <h:outputText value="#{livro.id}" />
                 </p:column>
                 <p:column headerText="ISBN">
                     <h:outputText value="#{livro.isbn}" />
                 </p:column>
-                <p:column headerText="Título">
+                <p:column sortBy="#{livro.titulo}" headerText="Título">
                     <h:outputText value="#{livro.titulo}" />
                 </p:column>
                 <p:column headerText="Autor">
@@ -48,9 +60,9 @@
                     <h:outputText value="#{livro.nroDePaginas}" />
                 </p:column>
                 <p:column headerText="Ações">
-                    <p:commandButton value="Editar" action="#{livroBean.editarLivro(livro)}" styleClass="ui-button-secondary"
+                    <p:commandButton value="Editar" action="#{listagemBean.editarLivro(livro)}" styleClass="ui-button-secondary"
                                      update="tb-livros" />
-                    <p:commandButton value="Remover" action="#{livroBean.removerLivro(livro)}"
+                    <p:commandButton value="Remover" action="#{listagemBean.removerLivro(livro)}"
                                      onclick="return confirm('Confirma exclusão?')" styleClass="ui-button-danger"
                                      update="tb-livros" />
                 </p:column>
@@ -59,6 +71,41 @@
         </h:form>
 
         <p:linkButton value="Cadastrar novo livro" outcome="cadastrolivro" style="margin: 20px" />
+
+        <p:divider />
+
+        <span class="titulo-pagina">Listagem de Leitores</span>
+
+        <h:form id="form-leitores">
+            <p:dataTable id="tb-leitores" value="#{listagemBean.leitores}" var="leitor" emptyMessage="Sem registros"
+                         allowUnsorting="true" sortMode="single">
+                <p:column sortBy="#{leitor.cpf}" headerText="CPF">
+                    <h:outputText value="#{leitor.cpf}" />
+                </p:column>
+                <p:column headerText="Nome">
+                    <h:outputText value="#{leitor.nome}" />
+                </p:column>
+                <p:column headerText="Data de Nascimento">
+                    <h:outputText value="#{leitor.dataDeNascimento}">
+                        <f:converter converterId="MeuLocalDateConverter" />
+                    </h:outputText>
+                </p:column>
+                <p:column headerText="E-mail">
+                    <h:outputText value="#{leitor.email}" />
+                </p:column>
+
+                <p:column headerText="Ações">
+                    <p:commandButton value="Editar" action="#{listagemBean.editarLeitor(leitor)}" styleClass="ui-button-secondary"
+                                     update="tb-leitores" />
+                    <p:commandButton value="Remover" action="#{listagemBean.removerLeitor(leitor)}"
+                                     onclick="return confirm('Confirma exclusão?')" styleClass="ui-button-danger"
+                                     update="tb-leitores" />
+                </p:column>
+
+            </p:dataTable>
+        </h:form>
+
+        <p:linkButton value="Cadastrar novo leitor" outcome="cadastroleitor" style="margin: 20px" />
 
     </div>
 

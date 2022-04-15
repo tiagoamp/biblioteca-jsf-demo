@@ -32,6 +32,17 @@ body {
 	display: flex;
 	flex-direction: row;
 	align-items: center;
+	justify-content: space-around;
+}
+
+.itens-menu {
+	font-size: 1.4rem;
+}
+
+.item-menu {
+	margin: 0px 30px;
+	text-decoration: none;
+	color: var(--text-color-destaque);
 }
 
 .main {
@@ -55,7 +66,7 @@ body {
 }
 
 .input-container {
-	font-size: 1.1rem;		
+	font-size: 1.1rem;
 }
 
 .input-container input {
@@ -65,7 +76,7 @@ body {
 }
 
 .input-container input, label, .combobox-categoria {
-	margin: 5px;	
+	margin: 5px;
 }
 
 .input-campo-e-erro {
@@ -95,8 +106,8 @@ body {
 	color: var(--text-color-primary);
 }
 
-.tab-livros {
-	text-align: center;	
+.tab-livros, tab-leitores {
+	text-align: center;
 	font-size: 1.2rem;
 }
 
@@ -113,8 +124,8 @@ body {
 	margin: 2px 4px;
 }
 
-.btn-link-livro {
-	margin: 20px 0px;	
+.btn-link-livro, .btn-link-leitor {
+	margin: 20px 0px;
 }
 
 .footer {

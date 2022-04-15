@@ -49,6 +49,10 @@ public class LivroRepo {
         Collections.sort(livros, Comparator.comparing(Livro::getId));
     }
 
+    public boolean existe(Long isbn) {
+        return livros.stream().anyMatch(l -> l.getIsbn().longValue() == isbn);
+    }
+
     private long obterProximoId() {
         return ++idAtual;
     }

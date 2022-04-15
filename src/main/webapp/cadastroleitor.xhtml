@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Gestão de Biblioteca</title>
+    <h:outputStylesheet name="css/styles.css" />
+</h:head>
+
+<h:body>
+
+    <div class="header">
+        <div class="logomarca">
+            <span>Gestão de Biblioteca</span>
+        </div>
+        <div class="itens-menu">
+            <span><h:link value="Listagem" outcome="listagem" styleClass="item-menu" /></span>
+            <span><h:link value="Cadastro de Livro" outcome="cadastrolivro" styleClass="item-menu" /></span>
+            <span><h:link value="Cadastro de Leitor" outcome="cadastroleitor" styleClass="item-menu" /></span>
+        </div>
+    </div>
+
+    <div class="main">
+
+        <span class="titulo-pagina">Formulário de Cadastro de Leitor</span>
+
+        <h:form id="form-cadastro-leitor" styleClass="form-leitor-container">
+
+            <p:panelGrid id="panel-cadastro-leitor" columns="2" styleClass="input-container">
+
+                <p:outputLabel value="CPF" for="input-cpf" />
+                <h:panelGroup styleClass="input-campo-e-erro">
+                    <p:inputText value="#{leitorBean.leitor.cpf}" id="input-cpf" disabled="#{leitorBean.leitor.cpf != null}"/>
+                    <p:message for="input-cpf" style="font-size: 0.8rem" />
+                </h:panelGroup>
+
+                <h:outputLabel value="Nome" for="input-nome" />
+                <h:panelGroup styleClass="input-campo-e-erro">
+                    <p:inputText value="#{leitorBean.leitor.nome}" id="input-nome" maxlength="100" />
+                    <p:message for="input-nome" style="font-size: 0.8rem" />
+                </h:panelGroup>
+
+                <p:outputLabel value="Data de Nascimento" for="input-data-nasc" />
+                <h:panelGroup styleClass="input-campo-e-erro">
+                    <p:datePicker value="#{leitorBean.leitor.dataDeNascimento}" id="input-data-nasc" pattern="dd/MM/yyyy" />
+                    <p:message for="input-data-nasc" style="font-size: 0.8rem" />
+                </h:panelGroup>
+
+                <p:outputLabel value="E-mail" for="input-email" />
+                <h:panelGroup styleClass="input-campo-e-erro">
+                    <p:inputText value="#{leitorBean.leitor.email}" id="input-email" maxlength="100" />
+                    <p:message for="input-email" style="font-size: 0.8rem" />
+                </h:panelGroup>
+
+            </p:panelGrid>
+
+            <h:panelGroup styleClass="botao-container">
+                <p:commandButton style="margin: 20px"
+                                 value="#{leitorBean.leitor.cpf == null ? 'Cadastrar' : 'Atualizar'}"
+                                 action="#{leitorBean.salvar}"
+                                 update="panel-cadastro-leitor" />
+            </h:panelGroup>
+
+        </h:form>
+
+        <p:link value="Voltar" outcome="listagem" />
+
+    </div>
+
+    <div class="footer">
+        Desenvolvido em - 2022
+    </div>
+
+</h:body>
+</html>
