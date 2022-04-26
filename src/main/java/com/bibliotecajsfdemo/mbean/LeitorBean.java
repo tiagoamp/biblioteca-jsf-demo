@@ -5,7 +5,9 @@ import com.bibliotecajsfdemo.repository.LeitorRepo;
 
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
+import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
+import javax.faces.validator.ValidatorException;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
@@ -23,18 +25,24 @@ public class LeitorBean implements Serializable {
     public String salvar() {
         boolean isLeitorNovo = leitor.getCpf() == null;
         if (isLeitorNovo) {
-            boolean jaCadastrado = leitorRepo.existe(leitor.getCpf());
-            if (jaCadastrado) {
-                FacesContext.getCurrentInstance().addMessage(null,
-                        new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro de Validação", "Leitor já cadastrado com CPF informado"));
-                return null;
-            }
             leitorRepo.adicionar(leitor);
         } else {
             leitorRepo.alterar(leitor);
         }
         leitor = new Leitor();
         return "listagem?faces-redirect=true";
+    }
+
+
+    public void validarCPFduplicado(FacesContext facesContext, UIComponent component, Object o) throws ValidatorException {
+        if (o == null)
+            return;
+        Long cpf = (Long) o;
+        boolean jaCadastrado = leitorRepo.existe(cpf);
+        if (jaCadastrado) {
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro de Validação", "Leitor já cadastrado com CPF informado");
+            throw new ValidatorException(msg);
+        }
     }
 
 

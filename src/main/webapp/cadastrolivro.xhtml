@@ -38,7 +38,8 @@
 
                 <p:outputLabel value="ISBN(13)" for="input-isbn" />
                 <h:panelGroup styleClass="input-campo-e-erro">
-                    <p:inputText value="#{livroBean.livro.isbn}" id="input-isbn" />
+                    <p:inputText value="#{livroBean.livro.isbn}" id="input-isbn"
+                        validator="#{livroBean.validarISBNduplicado}" />
                     <p:message for="input-isbn" style="font-size: 0.8rem" />
                 </h:panelGroup>
 

@@ -33,7 +33,8 @@
 
                 <p:outputLabel value="CPF" for="input-cpf" />
                 <h:panelGroup styleClass="input-campo-e-erro">
-                    <p:inputText value="#{leitorBean.leitor.cpf}" id="input-cpf" disabled="#{leitorBean.leitor.cpf != null}"/>
+                    <p:inputText value="#{leitorBean.leitor.cpf}" id="input-cpf" disabled="#{leitorBean.leitor.cpf != null}"
+                        validator="#{leitorBean.validarCPFduplicado}"/>
                     <p:message for="input-cpf" style="font-size: 0.8rem" />
                 </h:panelGroup>
 
