@@ -2,6 +2,8 @@ package com.bibliotecajsfdemo.mbean;
 
 import com.bibliotecajsfdemo.model.Livro;
 import com.bibliotecajsfdemo.repository.LivroRepo;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
@@ -18,6 +20,8 @@ import java.util.List;
 @SessionScoped
 public class LivroBean implements Serializable {
 
+    private Logger logger = LogManager.getLogger(this.getClass());
+
     @Inject
     private LivroRepo livroRepo;
 
@@ -30,6 +34,7 @@ public class LivroBean implements Serializable {
         } else {
             livroRepo.alterar(livro);
         }
+        logger.debug("Livro salvo: " + livro);
         livro = new Livro();
         return "listagem?faces-redirect=true";
     }
@@ -41,6 +46,7 @@ public class LivroBean implements Serializable {
         Long isbn = (Long) o;
         boolean jaCadastrado = livroRepo.existe(isbn);
         if (jaCadastrado) {
+            logger.error("Livro jah cadastrado com ISBN: " + isbn);
             FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro de Validação", "Livro já cadastrado com ISBN informado");
             throw new ValidatorException(msg);
         }

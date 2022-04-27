@@ -2,6 +2,8 @@ package com.bibliotecajsfdemo.mbean;
 
 import com.bibliotecajsfdemo.model.Leitor;
 import com.bibliotecajsfdemo.repository.LeitorRepo;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
@@ -16,6 +18,8 @@ import java.io.Serializable;
 @SessionScoped
 public class LeitorBean implements Serializable {
 
+    private Logger logger = LogManager.getLogger(this.getClass());
+
     @Inject
     private LeitorRepo leitorRepo;
 
@@ -29,6 +33,7 @@ public class LeitorBean implements Serializable {
         } else {
             leitorRepo.alterar(leitor);
         }
+        logger.debug("Leitor salvo: " + leitor);
         leitor = new Leitor();
         return "listagem?faces-redirect=true";
     }
@@ -40,6 +45,7 @@ public class LeitorBean implements Serializable {
         Long cpf = (Long) o;
         boolean jaCadastrado = leitorRepo.existe(cpf);
         if (jaCadastrado) {
+            logger.error("Leitor jah cadastrado com CPF: " + cpf);
             FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro de Validação", "Leitor já cadastrado com CPF informado");
             throw new ValidatorException(msg);
         }

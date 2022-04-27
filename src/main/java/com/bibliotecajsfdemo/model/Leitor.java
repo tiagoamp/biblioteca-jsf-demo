@@ -20,14 +20,18 @@ public class Leitor {
     @Email(message = "{campo.invalido.formato}")
     private String email;
 
+    @Size(min = 11, max = 20, message = "{campo.invalido.tamanho}")
+    private String telefone;
+
 
     public Leitor() { }
 
-    public Leitor(Long cpf, String nome, LocalDate dataDeNascimento, String email) {
+    public Leitor(Long cpf, String nome, LocalDate dataDeNascimento, String email, String telefone) {
         this.cpf = cpf;
         this.nome = nome;
         this.dataDeNascimento = dataDeNascimento;
         this.email = email;
+        this.telefone = telefone;
     }
 
 
@@ -61,5 +65,13 @@ public class Leitor {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getTelefone() {
+        return telefone;
+    }
+
+    public void setTelefone(String telefone) {
+        this.telefone = telefone;
     }
 }

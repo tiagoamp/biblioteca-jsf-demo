@@ -4,6 +4,8 @@ import com.bibliotecajsfdemo.model.Leitor;
 import com.bibliotecajsfdemo.model.Livro;
 import com.bibliotecajsfdemo.repository.LeitorRepo;
 import com.bibliotecajsfdemo.repository.LivroRepo;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
@@ -15,6 +17,8 @@ import java.util.List;
 @Named
 @SessionScoped
 public class ListagemBean implements Serializable {
+
+    private Logger logger = LogManager.getLogger(ListagemBean.class);
 
     @Inject
     private LivroRepo livroRepo;
@@ -33,6 +37,7 @@ public class ListagemBean implements Serializable {
         livros = livrosBD;
         List<Leitor> leitoresBD = leitorRepo.obterLeitores();
         leitores = leitoresBD;
+        logger.info("Carregado " + livros.size() + " livros.");
     }
 
     public String editarLivro(Livro livroSelecionado) {

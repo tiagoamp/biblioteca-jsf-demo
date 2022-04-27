@@ -14,6 +14,7 @@
           <element id="module-output" name="biblioteca-jsf-demo" />
         </element>
         <element id="directory" name="lib">
+          <element id="library" level="project" name="Maven: log4j:log4j:1.2.17" />
           <element id="library" level="project" name="Maven: org.primefaces:primefaces:11.0.0" />
           <element id="library" level="project" name="Maven: javax.annotation:javax.annotation-api:1.3.2" />
           <element id="library" level="project" name="Maven: org.hibernate.validator:hibernate-validator:6.2.0.Final" />
