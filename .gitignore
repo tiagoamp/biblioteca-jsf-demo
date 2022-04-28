@@ -1,4 +1,6 @@
 target
+log
+*.log
 
 # User-specific stuff
 .idea/**/workspace.xml
