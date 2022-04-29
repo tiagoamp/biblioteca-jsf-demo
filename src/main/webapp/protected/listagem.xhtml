@@ -11,6 +11,10 @@
             <f:event type="preRenderView" listener="#{listagemBean.onload}" />
         </f:metadata>
 
+        <p:messages id="msgs-forms" showDetail="true" closable="true">
+            <p:autoUpdate/>
+        </p:messages>
+
         <span class="titulo-pagina">Listagem de Livros</span>
 
         <h:form id="form-livros">
@@ -90,6 +94,45 @@
         </h:form>
 
         <p:linkButton value="Cadastrar novo leitor" outcome="cadastroleitor" style="margin: 20px" />
+
+        <p:divider />
+
+        <span class="titulo-pagina">Listagem de Empréstimos</span>
+
+        <h:form id="form-emprestimos">
+
+            <p:dataTable id="tb-emprestimos" value="#{listagemBean.emprestimos}" var="emprestimo" emptyMessage="Sem registros">
+                <p:column headerText="ID">
+                    <h:outputText value="#{emprestimo.id}" />
+                </p:column>
+                <p:column headerText="Data do Empréstimo">
+                    <h:outputText value="#{emprestimo.dataEmprestimo}">
+                        <f:converter converterId="MeuLocalDateConverter" />
+                    </h:outputText>
+                </p:column>
+                <p:column headerText="Data de Devolução">
+                    <h:outputText value="#{emprestimo.dataDevolucao}">
+                        <f:converter converterId="MeuLocalDateConverter" />
+                    </h:outputText>
+                </p:column>
+                <p:column headerText="Livro">
+                    <h:outputText value="#{emprestimo.livro.titulo}" />
+                </p:column>
+                <p:column headerText="Leitor">
+                    <h:outputText value="#{emprestimo.leitor.nome}" />
+                </p:column>
+                <p:column headerText="Ações">
+                    <p:commandButton value="Consultar" action="#{listagemBean.consultar(emprestimo)}" styleClass="ui-button-secondary"
+                                     update="tb-emprestimos" />
+                    <p:commandButton value="Devolver" action="#{listagemBean.devolver(emprestimo)}"
+                                     onclick="return confirm('Confirma devolução?')" styleClass="ui-button-danger"
+                                     update="tb-emprestimos" />
+                </p:column>
+            </p:dataTable>
+
+        </h:form>
+
+        <p:linkButton value="Cadastrar novo Empréstimo" outcome="cadastroemprestimo" style="margin: 20px" />
 
     </ui:define>
 

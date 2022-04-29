@@ -1,0 +1,70 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                template="/WEB-INF/template.xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+    <ui:define name="conteudo">
+
+        <span class="titulo-pagina">Formulário de Cadastro de Emprestimo</span>
+
+        <h:panelGroup rendered="#{emprestimoBean.livrosDisponiveis.size() == 0}">
+            <h:outputText value="Sem livros disponíveis para empréstimos" style="font-size: 1.2rem; color: #274472"/>
+            <p:link value="Voltar" outcome="listagem" />
+        </h:panelGroup>
+
+        <h:form id="form-cadastro-emprestimo" styleClass="form-emprestimo-container" rendered="#{emprestimoBean.livrosDisponiveis.size() > 0}">
+
+            <p:panelGrid id="panel-cadastro-emprestimo" columns="2" >
+
+                <p:outputLabel value="Identificador" for="input-id" rendered="#{emprestimoBean.emprestimo.id != null}"/>
+                <p:inputText value="#{emprestimoBean.emprestimo.id}" id="input-id"
+                             disabled="true" rendered="#{emprestimoBean.emprestimo.id != null}" />
+
+                <p:outputLabel value="Livro" for="input-livro" />
+                <h:panelGroup styleClass="input-campo-e-erro">
+                    <p:selectOneMenu value="#{emprestimoBean.emprestimo.livro.id}" id="input-livro" disabled="#{emprestimoBean.emprestimo.id != null}" >
+                        <f:selectItem itemValue="#{null}" itemLabel="-- selecione --" />
+                        <f:selectItems value="#{emprestimoBean.livrosDisponiveis}" var="livro" itemValue="#{livro.id}" itemLabel="#{livro.titulo}" />
+                    </p:selectOneMenu>
+                    <p:message for="input-livro" style="font-size: 0.8rem" />
+                </h:panelGroup>
+
+                <p:outputLabel value="Leitor" for="input-leitor" />
+                <h:panelGroup styleClass="input-campo-e-erro">
+                    <p:selectOneMenu value="#{emprestimoBean.emprestimo.leitor.cpf}" id="input-leitor" disabled="#{emprestimoBean.emprestimo.id != null}" >
+                        <f:selectItem itemValue="#{null}" itemLabel="-- selecione --" />
+                        <f:selectItems value="#{emprestimoBean.leitores}" var="leitor" itemValue="#{leitor.cpf}" itemLabel="#{leitor.nome}" />
+                    </p:selectOneMenu>
+                    <p:message for="input-leitor" style="font-size: 0.8rem" />
+                </h:panelGroup>
+
+                <p:outputLabel value="Data de Devolução" for="input-data-devolucao" />
+                <h:panelGroup styleClass="input-campo-e-erro">
+                    <p:datePicker value="#{emprestimoBean.emprestimo.dataDevolucao}" id="input-data-devolucao"
+                                  disabled="#{emprestimoBean.emprestimo.id != null}" pattern="dd/MM/yyyy" />
+                    <p:message for="input-data-devolucao" style="font-size: 0.8rem" />
+                </h:panelGroup>
+
+            </p:panelGrid>
+
+            <h:panelGroup styleClass="botao-container">
+                <p:commandButton style="margin: 20px"
+                             value="Cadastrar"
+                             action="#{emprestimoBean.salvar}"
+                             update="panel-cadastro-emprestimo"
+                             rendered="#{emprestimoBean.emprestimo.id == null}"/>
+
+                <p:commandButton style="margin: 20px"
+                                 process="@this"
+                                 value="Voltar"
+                                 action="#{emprestimoBean.voltar}"
+                                 update="panel-cadastro-emprestimo"/>
+            </h:panelGroup>
+
+        </h:form>
+
+    </ui:define>
+
+</ui:composition>

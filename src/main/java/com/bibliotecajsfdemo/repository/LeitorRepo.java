@@ -31,6 +31,10 @@ public class LeitorRepo {
         return leitores;
     }
 
+    public Leitor obterPor(Long cpf) {
+        return leitores.stream().filter(l -> l.getCpf().longValue() == cpf.longValue()).findFirst().get();
+    }
+
     public void adicionar(Leitor leitorNovo) {
         leitores.add(leitorNovo);
     }

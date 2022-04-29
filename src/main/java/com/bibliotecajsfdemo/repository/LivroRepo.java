@@ -33,6 +33,10 @@ public class LivroRepo {
         return livros;
     }
 
+    public Livro obterPor(Long id) {
+        return livros.stream().filter(l -> l.getId().longValue() == id.longValue()).findFirst().get();
+    }
+
     public void adicionar(Livro livroNovo) {
         Long proxId = obterProximoId();
         livroNovo.setId(proxId);

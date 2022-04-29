@@ -50,7 +50,6 @@ body {
 	flex: 1;
 	flex-direction: row;
 	justify-content: flex-end;
-	align-items: center;
 }
 
 .form-user-info span{
